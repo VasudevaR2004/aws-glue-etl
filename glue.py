@@ -60,21 +60,15 @@ def process_file(bucket,file_format, file_name):
     # Read file from S3 based on file format
     if file_format == 'csv':
         df = spark.read.format("csv").option("header", "true").load(f"s3://{bucket}/{file_name}")
-        # Perform ETL operations for CSV files
-        # Example: df = df.withColumn(...)
     elif file_format == 'json':
         df = spark.read.format("json").load(f"s3://{bucket}/{file_name}")
-        # Perform ETL operations for JSON files
-        # Example: df = df.withColumn(...)
     elif file_format == 'parquet':
         df = spark.read.format("parquet").load(f"s3://{bucket}/{file_name}")
-        # Perform ETL operations for Parquet files
-        # Example: df = df.withColumn(...)
     elif file_format == 'txt':   
         df = spark.read.text(f"s3://{bucket}/{file_name}")
     else:
         # Handle other file formats if needed
-        df = None
+        df = spark.read.format(file_format).load(f"s3://{bucket}/{file_name}")
     return df
     
     
@@ -89,6 +83,8 @@ def write_to_s3(sampled_df,file_format,output_bucket,file_name):
     elif file_format == "csv":
         sampled_df.write.format("csv").option("header", "true").mode("overwrite").save(f"s3://{output_bucket}/{file_name}")
         print(f"Succesfully saved to s3://{output_bucket}/{file_name}.")
+        else:
+        sampled_df.write.format(file_format).mode("overwrite").save(f"s3://{output_bucket}/{file_name}")
     return True
 
 
