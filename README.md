@@ -26,7 +26,7 @@ Task Details
 Task ID: etl_process_task
 Execution: Invokes the main() function defined in etl_process.py.
 
-
+The config.json is given if we are not using Manged workflow Apache Airflow(MWAA) by Amazon, we need to access AWS glue with Apache Airflo0w using access keys, But here I am using MWAA.
 
 
 Requirements
