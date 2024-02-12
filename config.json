@@ -1,0 +1,9 @@
+{
+    "aws_access_key_id": "your-access-key-id",
+    "aws_secret_access_key": "your-secret-access-key",
+    "glue_job_settings": {
+        "job_type": "glue_etl",
+        "max_concurrent_runs": 1,
+        "timeout": 60
+    }
+}
